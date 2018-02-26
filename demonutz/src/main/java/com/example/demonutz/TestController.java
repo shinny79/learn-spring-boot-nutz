@@ -1,7 +1,9 @@
 package com.example.demonutz;
 
-import com.example.demonutz.data.Person;
-import com.example.demonutz.manager.ProductManager;
+import com.example.demonutz.dao.data.Person;
+import com.example.demonutz.dao.data.VirtualProduct;
+import com.example.demonutz.dao.manager.PersonManager;
+import com.example.demonutz.dao.manager.VirtualProductManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +11,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController()
+@RestController
 public class TestController {
     private static Log LOG = LogFactory.getLog(TestController.class);
 
     @Autowired
-    private ProductManager productManager;
+    private PersonManager personManager;
 
     @GetMapping("insert")
     public String insert() {
         for (int i = 0; i < 10; i++) {
-            productManager.addProduct();
+            personManager.addProduct();
         }
         LOG.debug("OK");
         return "ok";
@@ -32,7 +34,7 @@ public class TestController {
 
     ) {
         LOG.debug("query");
-        return productManager.list(page, limit);
+        return personManager.list(page, limit);
     }
 
     @RequestMapping("update")
@@ -41,7 +43,7 @@ public class TestController {
             @RequestParam(value = "name", required = true) String name
     ) {
         LOG.debug("update");
-        productManager.update(id, name);
+        personManager.update(id, name);
         return "test";
     }
 

@@ -1,11 +1,14 @@
-package com.example.demonutz.data;
+package com.example.demonutz.dao.data;
 
-
-import org.nutz.dao.entity.annotation.*;
-import org.nutz.plugin.spring.boot.service.entity.DataBaseEntity;
+import org.nutz.dao.entity.annotation.ColDefine;
+import org.nutz.dao.entity.annotation.Column;
+import org.nutz.dao.entity.annotation.Default;
+import org.nutz.dao.entity.annotation.Id;
+import org.nutz.dao.entity.annotation.Name;
+import org.nutz.dao.entity.annotation.Table;
 
 @Table("person")
-public class Person extends DataBaseEntity {
+public class Person {
 
     @Id
     private long id;

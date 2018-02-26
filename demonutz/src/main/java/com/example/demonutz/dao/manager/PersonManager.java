@@ -1,16 +1,16 @@
-package com.example.demonutz.manager;
+package com.example.demonutz.dao.manager;
 
-import com.example.demonutz.data.Person;
+import com.example.demonutz.dao.data.Person;
 import org.nutz.dao.Dao;
-import org.nutz.dao.entity.Record;
-import org.nutz.plugin.spring.boot.service.BaseService;
+import org.nutz.ioc.loader.annotation.IocBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@IocBean
 @Service
-public class ProductManager extends BaseService<Person> {
+public class PersonManager {
 
     @Autowired
     private Dao dao;
@@ -35,6 +35,6 @@ public class ProductManager extends BaseService<Person> {
         Person p = dao.fetch(Person.class, id);
         p.setName(name);
 //        return updateFields(p, "^name$");
-        return update(p);
+        return dao.update(p);
     }
 }

@@ -1,13 +1,14 @@
+
 buildscript {
-	ext {
-		springBootVersion = '1.5.10.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '1.5.10.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -19,40 +20,57 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 jar {
-	baseName = 'testBaseName'
-	version = '0.1.0'
+    baseName = 'testBaseName'
+    version = '0.1.0'
 }
 
 repositories {
-	flatDir {
-		dirs 'lib'
-	}
-	mavenCentral()
+    flatDir {
+        dirs 'lib'
+    }
+    mavenCentral()
 }
 
 
 dependencies {
-	compile group: 'org.nutz', name: 'nutz', version: '1.r.63'
+    compile group: 'org.nutz', name: 'nutz', version: '1.r.63'
 
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-web-services')
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-autoconfigure')
-	compile('org.springframework.boot:spring-boot-configuration-processor')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-web-services')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-jdbc')
+    compile('org.springframework.boot:spring-boot-autoconfigure')
+    compile('org.springframework.boot:spring-boot-configuration-processor')
 
-	compile group: 'com.alibaba', name: 'druid', version: '1.0.27'
+    compile group: 'com.alibaba', name: 'druid', version: '1.0.27'
 
-	compile group: 'org.nutz', name: 'nutz', version: '1.r.63'
-	compile 'org.nutz:nutz-plugins-sqlmanager:1.r.63.r3'
-	compile 'org.nutz:nutz-integration-spring:1.r.63.r3'
-	compile group: 'org.nutz', name: 'nutz-plugins-spring-boot-starter', version: '1.r.63.r3'
+    compile group: 'org.nutz', name: 'nutz', version: '1.r.63'
+    compile 'org.nutz:nutz-plugins-sqlmanager:1.r.63.r3'
+    compile 'org.nutz:nutz-integration-spring:1.r.63.r3'
+//    compile group: 'org.nutz', name: 'nutz-plugins-spring-boot-starter', version: '1.r.63.r3'
 
-	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+//    complie group: 'external', name: 'commons-lang', version: '2.4'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
-	runtime('org.springframework.boot:spring-boot-devtools')
-	runtime('mysql:mysql-connector-java')
+    runtime('org.springframework.boot:spring-boot-devtools')
+    runtime('mysql:mysql-connector-java')
 
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+task copyJars(type: Copy) {
+    mkdir 'lib'
+    from configurations.runtime
+    into 'lib'
+}
+
+task printLog {
+    doLast {
+        println "this is printLog"
+    }
+}
+
+task clearJars(type: Delete) {
+    delete fileTree('lib')
 }
